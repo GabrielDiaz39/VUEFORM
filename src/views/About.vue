@@ -1,5 +1,20 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-container
+    class="px-0"
+    fluid
+  >
+    <v-switch
+      v-model="switch1"
+      :label="`Switch 1: ${switch1.toString()}`"
+    ></v-switch>
+  </v-container>
 </template>
+<script>
+  export default {
+    data () {
+      return {
+        switch1: true,
+      }
+    },
+  }
+</script>
