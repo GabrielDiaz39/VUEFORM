@@ -1,13 +1,20 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <v-app>
+    <v-navigation-drawer app> </v-navigation-drawer>
+    <v-app-bar app>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
       <router-link to="/Vform1">Formulario 1</router-link>
       <router-link to="/List1">List</router-link>
-    </div>
-    <router-view />
-  </div>
+    </v-app-bar>
+    <v-main>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-main>
+    <v-footer app> UTRM </v-footer>
+  
+  </v-app>
 </template>
 
 <style>
