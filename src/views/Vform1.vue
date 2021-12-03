@@ -63,7 +63,7 @@
             :rules="[rules.images]"
             accept="image/png, image/jpeg"
             placeholder="Click here to upload image"
-            @change="fileInput"
+            
             :disabled="processing"
           >
             <template v-slot:appent-outer>
@@ -136,6 +136,7 @@ export default {
         comments: "",
         options: [],
         isSubmitted: false,
+        image: null,
       },
       rules: {
         min: (v) => v.length >= 8 || "Min 8 Characters.",
@@ -155,6 +156,7 @@ export default {
   methods: {
     submitted() {
       //this.userData.isSubmitted = true;
+      this.fileInput(this.myFile);
       console.log(JSON.stringify(this.userData));
       var data = {
         email: this.userData.email,
@@ -162,6 +164,7 @@ export default {
         ranking: this.userData.ranking,
         comments: this.userData.comments,
         options: this.userData.options,
+        image:this.userData.image
       };
       UserDataService.create(data)
         .then(() => {
@@ -185,6 +188,7 @@ export default {
           imgData.append("image", this.myFile);
           const filepath = `image_userdata/${Date.now()}-${file.name}`;
           const metadata = { contentType: this.myFile.type };
+          this.userData.image=filepath;
 
           //Crear la refencia
           const ref = FirebaseStorage.ref().child(filepath);

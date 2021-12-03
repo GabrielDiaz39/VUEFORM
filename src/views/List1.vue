@@ -68,6 +68,9 @@
             label="I want today's special"
           ></v-checkbox>
         </v-col>
+        <v-col cols="12" md="4" sm="6" v-if="edituserData.image!=null">
+          <img class="preview" height="10%" :src="img1" >
+        </v-col>
        </v-row>
       </v-container>
           </v-card-text>
@@ -104,6 +107,7 @@
   </v-data-table>
 </template>
 <script>
+import { FirebaseStorage } from '../firebase';
 import UserDataService from "../services/UserDataService";
 export default {
   data() {
@@ -115,6 +119,7 @@ export default {
         ranking: 1,
         comments: "",
         options: [],
+        image: null,
       },
       defaultuserData: {
         email: "",
@@ -122,6 +127,7 @@ export default {
         ranking: 1,
         comments: "",
         options: [],
+        image: null,
       },
       currentuserData: null,
       currentIndex: -1,
@@ -170,6 +176,11 @@ export default {
     editItem(item) {
       //alert("Show Edit Modal");
       this.edituserData=Object.assign({},item);
+      FirebaseStorage.ref().child(this.edituserData.image)
+                .getDownloadURL()
+                .then((url) => {
+                  this.img1=url;
+                });
       this.dialog = true;
       console.log(item);
     },
